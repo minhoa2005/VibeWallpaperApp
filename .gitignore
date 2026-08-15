@@ -1,0 +1,28 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+/artifacts/
+
+# Visual Studio / .NET local state
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Test and coverage output
+TestResults/
+coverage/
+
+# NuGet packages and logs
+*.nupkg
+*.snupkg
+*.log
+
+# Agent/session-generated files
+/.superpowers/
+/docs/superpowers/
+
+# OS metadata
+.DS_Store
+Thumbs.db

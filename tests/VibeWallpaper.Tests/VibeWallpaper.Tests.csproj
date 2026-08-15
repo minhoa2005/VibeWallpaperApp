@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <IsTestProject>true</IsTestProject>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <ApplicationManifest>..\..\src\VibeWallpaper.App\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VibeWallpaper.App\VibeWallpaper.App.csproj" />
+    <ProjectReference Include="..\..\src\VibeWallpaper.Engine\VibeWallpaper.Engine.csproj" />
+    <ProjectReference Include="..\..\src\VibeWallpaper.MediaProbe\VibeWallpaper.MediaProbe.csproj" />
+  </ItemGroup>
+  <Target Name="CopyMediaProbeHelper" AfterTargets="Build">
+    <ItemGroup>
+      <MediaProbeFiles Include="..\..\src\VibeWallpaper.MediaProbe\bin\$(Configuration)\net10.0-windows10.0.26100.0\win-x64\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MediaProbeFiles)" DestinationFiles="@(MediaProbeFiles->'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

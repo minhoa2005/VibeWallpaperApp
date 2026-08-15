@@ -1,0 +1,102 @@
+<Window
+    x:Class="VibeWallpaper.App.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <NavigationView
+      x:Name="AppNavigation"
+      AutomationProperties.AutomationId="AppNavigation"
+      IsBackButtonVisible="Collapsed"
+      IsSettingsVisible="False"
+      PaneDisplayMode="Left"
+      PaneTitle="Vibe Wallpaper"
+      SelectionChanged="AppNavigation_SelectionChanged">
+    <NavigationView.MenuItems>
+      <NavigationViewItem
+          x:Name="DisplaysNavigationItem"
+          AutomationProperties.AutomationId="DisplaysNavigationItem"
+          Content="Màn hình"
+          Tag="displays">
+        <NavigationViewItem.Icon>
+          <FontIcon Glyph="&#xE7F4;" />
+        </NavigationViewItem.Icon>
+      </NavigationViewItem>
+      <NavigationViewItem
+          x:Name="LibraryNavigationItem"
+          AutomationProperties.AutomationId="LibraryNavigationItem"
+          Content="Thư viện"
+          Tag="library">
+        <NavigationViewItem.Icon>
+          <FontIcon Glyph="&#xE8B9;" />
+        </NavigationViewItem.Icon>
+      </NavigationViewItem>
+    </NavigationView.MenuItems>
+
+    <Grid>
+      <Grid x:Name="DisplaysHost" Padding="24" RowSpacing="12">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Spacing="4">
+          <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Màn hình" />
+          <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Chọn wallpaper, chế độ và màn hình trước khi áp dụng." />
+        </StackPanel>
+        <InfoBar
+            x:Name="ManagementNotice"
+            Grid.Row="1"
+            AutomationProperties.AutomationId="ManagementNotice"
+            IsClosable="True"
+            IsOpen="False" />
+        <Grid Grid.Row="2" ColumnSpacing="12">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+          <ComboBox
+              x:Name="WallpaperPicker"
+              AutomationProperties.AutomationId="WallpaperPicker"
+              DisplayMemberPath="Name"
+              Header="Wallpaper"
+              MinWidth="260"
+              SelectionChanged="WallpaperPicker_SelectionChanged" />
+          <ComboBox
+              x:Name="ModePicker"
+              Grid.Column="1"
+              AutomationProperties.AutomationId="DisplayModePicker"
+              Header="Chế độ hiển thị"
+              SelectionChanged="ModePicker_SelectionChanged" />
+          <Button
+              x:Name="ApplyWallpaperButton"
+              Grid.Column="2"
+              VerticalAlignment="Bottom"
+              AutomationProperties.AutomationId="ApplyWallpaperButton"
+              Click="ApplyWallpaperButton_Click"
+              Content="Đặt wallpaper" />
+        </Grid>
+        <ListView
+            x:Name="OutputList"
+            Grid.Row="3"
+            AutomationProperties.AutomationId="OutputList"
+            DisplayMemberPath="DisplayName"
+            IsMultiSelectCheckBoxEnabled="True"
+            SelectionChanged="OutputList_SelectionChanged"
+            SelectionMode="Multiple" />
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="8">
+          <TextBox x:Name="ColorText" Width="160" AutomationProperties.AutomationId="ColorText" Header="Màu" Text="#101014" />
+          <Button x:Name="ApplyButton" VerticalAlignment="Bottom" AutomationProperties.AutomationId="ApplyColorButton" Click="ApplyButton_Click" Content="Đặt màu" />
+          <Button x:Name="ExitButton" VerticalAlignment="Bottom" AutomationProperties.AutomationId="ExitButton" Click="ExitButton_Click" Content="Thoát" />
+        </StackPanel>
+        <StackPanel Grid.Row="5" Spacing="2">
+          <TextBlock x:Name="StatusText" Text="Sẵn sàng" TextWrapping="Wrap" />
+          <TextBlock x:Name="ErrorText" Foreground="{ThemeResource SystemFillColorCriticalBrush}" TextWrapping="Wrap" />
+        </StackPanel>
+      </Grid>
+      <ContentControl x:Name="LibraryHost" Visibility="Collapsed" />
+    </Grid>
+  </NavigationView>
+</Window>
